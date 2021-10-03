@@ -31,21 +31,21 @@ func TestBucketReconciler_checksum(t *testing.T) {
 	}{
 		{
 			name: "empty root",
-			want: "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+			want: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
 		},
 		{
 			name: "with file",
 			beforeFunc: func(root string) {
 				mockFile(root, "a/b/c.txt", "a dummy string")
 			},
-			want: "309a5e6e96b4a7eea0d1cfaabf1be8ec1c063fa0",
+			want: "65a8ff8c0feac7c8710ece851923f173e45cb89dc264378ed291074e5759aa61",
 		},
 		{
 			name: "with file in different path",
 			beforeFunc: func(root string) {
 				mockFile(root, "a/b.txt", "a dummy string")
 			},
-			want: "e28c62b5cc488849950c4355dddc5523712616d4",
+			want: "361fe57151a3893cba2186027f303a4f7c7c85623d05c99b003c88522bf88db4",
 		},
 	}
 	for _, tt := range tests {

@@ -18,7 +18,7 @@ package controllers
 
 import (
 	"context"
-	"crypto/sha1"
+	"crypto/sha256"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -355,11 +355,11 @@ func (r *BucketReconciler) auth(ctx context.Context, bucket sourcev1.Bucket) (*m
 	return minio.New(bucket.Spec.Endpoint, &opt)
 }
 
-// checksum calculates the SHA1 checksum of the given root directory.
-// It traverses the given root directory and calculates the checksum for any found file, and returns the SHA1 sum of the
+// checksum calculates the SHA-256 checksum of the given root directory.
+// It traverses the given root directory and calculates the checksum for any found file, and returns the SHA-256 sum of the
 // list with relative file paths and their checksums.
 func (r *BucketReconciler) checksum(root string) (string, error) {
-	sum := sha1.New()
+	sum := sha256.New()
 	if err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -375,7 +375,7 @@ func (r *BucketReconciler) checksum(root string) (string, error) {
 		if err != nil {
 			return err
 		}
-		sum.Write([]byte(fmt.Sprintf("%x  %s\n", sha1.Sum(data), relPath)))
+		sum.Write([]byte(fmt.Sprintf("%x  %s\n", sha256.Sum256(data), relPath)))
 		return nil
 	}); err != nil {
 		return "", err

@@ -841,7 +841,7 @@ string
 </td>
 <td>
 <em>(Optional)</em>
-<p>Checksum is the SHA1 checksum of the artifact.</p>
+<p>Checksum is the SHA-256 checksum of the artifact.</p>
 </td>
 </tr>
 <tr>
